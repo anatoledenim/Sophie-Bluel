@@ -135,8 +135,12 @@ li:hover {
 
 .gallery img {
 	width: 100%;
-
 }
+
+.bonjour {
+	border: solid 1px black;
+}
+
 #contact {
 	width: 50%;
 margin: auto;
