@@ -9,8 +9,8 @@ async function apiProjects() {
             const figureHTML = document.createElement("figure");
             const imageGallery = document.createElement("img");
             imageGallery.src = worksImage[i];
-            const nameGallery = document.createElement("p")
-            nameGallery.innerText = worksName[i]
+            const nameGallery = document.createElement("p");
+            nameGallery.innerText = worksName[i];
             divGallery.appendChild(figureHTML);
             figureHTML.appendChild(imageGallery);
             figureHTML.appendChild(nameGallery);
@@ -20,4 +20,24 @@ async function apiProjects() {
 apiProjects()
 
 
+{
+const filterBar = document.querySelector(".filter-bar");
+
+const filterBarTousP = document.createElement("button");
+filterBarTousP.innerText = "Tous";
+
+const filterBarObjetsP = document.createElement("button");
+filterBarObjetsP.innerText = "Objets";
+
+const filterBarAppartementsP = document.createElement("button");
+filterBarAppartementsP.innerText = "Appartements";
+
+const filterBarHRP = document.createElement("button");
+filterBarHRP.innerText = "Hôtels & Restaurants";
+
+filterBar.appendChild(filterBarTousP)
+filterBar.appendChild(filterBarObjetsP)
+filterBar.appendChild(filterBarAppartementsP)
+filterBar.appendChild(filterBarHRP)
+}
 
