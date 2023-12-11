@@ -160,6 +160,10 @@ li:hover {
 	cursor: pointer;
 }
 
+.button-tous {
+	background-color: black;
+}
+
 .gallery {
 	width: 100%;
 	display: grid;
@@ -171,6 +175,10 @@ li:hover {
 .gallery img {
 	width: 100%;
 	padding-bottom: 5px;
+}
+
+.display-none {
+	display: none;
 }
 
 #contact {
