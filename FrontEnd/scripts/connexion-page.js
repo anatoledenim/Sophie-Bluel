@@ -38,6 +38,7 @@ connexionButton.addEventListener("click", function() {
     }
 
     if (inputMailValue === "sophie.bluel@test.tld" && inputPasswordValue === "S0phie") {
+        window.localStorage.setItem("token", "gwEtS=KfKfR^zxJP83ULiw")
         this.onclick=document.location.href='index.html'
     } else {
         inputMail.innerText =""

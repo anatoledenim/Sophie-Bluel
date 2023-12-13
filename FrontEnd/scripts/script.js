@@ -52,7 +52,7 @@ function applyFilter(filterCategoryId) {
     });
 }
 
-// AFFICHER LES PROJETS SUR LE BLOC PRINCIPAL
+// AFFICHER LES ELEMENTS SUR LE BLOC PRINCIPAL
 async function buildPage() {
     const works = await fetchGetElements("http://localhost:5678/api/works");
 
@@ -77,14 +77,40 @@ async function buildPage() {
         figureHTML.appendChild(nameGallery);
     }
 
-    // for (i = 1; i < filterBarButton.length; i++) {
-    //     filterBarButton = document.getElementsByClassName("filter-button")
-    //     filterBarButton[i].addEventListener("click", function() {
-    //     applyFilter(i)
-    // });
-    // console.log(galleryItem)
+    // for (i = 0; i < works.length; i++) {
+    //     const figureModal = document.createElement("figure");
+    //     figureModal.dataset.categoryId = categoryId[i];
+    //     figureModal.classList.add("gallery-item")
+    //     const imageGallery = document.createElement("img");
+    //     imageGallery.src = worksImage[i];
+    //     const nameGallery = document.createElement("p");
+    //     nameGallery.innerText = worksName[i];
+    //     divGallery.appendChild(figureHTML);
+    //     figureHTML.appendChild(imageGallery);
+    //     figureHTML.appendChild(nameGallery);
     // }
 
+
+    let h2Project = document.getElementById("h2-project")
+    let token = "gwEtS=KfKfR^zxJP83ULiw"
+    if (window.localStorage.getItem("token") === token) {
+        let divBlack = document.getElementById("div-black-hidden")
+        divBlack.id = ("div-black")
+        divBlack.id 
+        let login = document.getElementById("login")
+        let logout = document.getElementById("display-none")
+        login.id = ("display-none")
+        logout.id = ("logout")
+        filterBar.classList.add("display-none")
+        h2Project.classList.add("padding-bottom")
+        let divEditionProject = document.getElementById("div-edition-project-hidden")
+        divEditionProject.id = ("div-edition-project")
+
+        logout.addEventListener("click", function() {
+            window.localStorage.removeItem("token")
+            this.onclick=document.location.href='index.html'
+        })
+    }
 }
 
 buildPage()
