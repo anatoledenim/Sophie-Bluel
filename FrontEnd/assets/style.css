@@ -225,20 +225,28 @@ li:hover {
 	left: 0;
 	width: 100%;
 	height: 100%;
-	background-color: rgba(0, 0, 0, 0.8);
+	background-color: rgba(0, 0, 0, 0.5);
 }
 
 .modal-wrapper {
+	position: relative;
 	overflow: auto;
 	background-color: white;
 	padding: 20px;
 	width: 630px;
-	max-height: 688px;
 	height: auto;
+	max-height: 688px;
 	border-radius: 10px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
+}
+
+.crossbar {
+	width: 24px;
+	height: 24px;
+	margin-left: 550px;
+	cursor: pointer;
 }
 
 .modal-wrapper h1 {
@@ -246,15 +254,43 @@ li:hover {
 	font-size: 26px;
 	font-weight: 400;
 	text-align: center;
-	padding-top: 60px;
+	padding-top: 40px;
 	color: black;
 }
 
+.div-trash {
+	position: absolute;
+	width: 68.3%;
+	height: 352.8px;
+	top: 160px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-column-gap: 10px;
+	grid-row-gap: 20px;
+}
+
+.background-trash {
+	width: 17px;
+	height: 17px;
+	border-radius: 2px;
+	background-color: black;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-left: 55px;
+	margin-top: 5px;
+	cursor: pointer;
+}
+
+.trash {
+	width: 9px;
+	height: 10.29px;
+}
+
 .modal-grid {
-	margin-top: 40px;
+	margin-top: 50px;
 	padding-bottom: 20px;
 	width: 73%;
-	max-height: 400px;
 	height: auto;
 	border-bottom: solid 2px #B3B3B3;
 	display: grid;
@@ -269,16 +305,19 @@ li:hover {
 }
 
 .modal-wrapper button {
-	margin-top: 45px;
+	margin-top: 35px;
+	margin-bottom: 25px;
 	width: 237px;
 	height: 36px;
 	border-radius: 60px;
 	background-color: #1D6154;
+	border: none;
 	font-family: Syne;
 	font-size: 14px;
 	font-weight: 700;
 	text-align: center;
 	color: white;
+	cursor: pointer;
 }
 
 .filter-bar {

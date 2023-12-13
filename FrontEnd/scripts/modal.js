@@ -34,3 +34,6 @@ window.addEventListener("keydown", function(e) {
     if (e.key === "Escape" || e.key === "Esc")
     closeModal(e)
 })
+
+let crossBar = document.querySelector(".crossbar")
+crossBar.addEventListener("click", closeModal)
