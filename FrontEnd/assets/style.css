@@ -95,6 +95,11 @@ nav li {
 	font-size: 1.2em;
 }
 
+nav a {
+	text-decoration: none;
+	color: black;
+}
+
 li:hover {
 	color: #B1663C;
 }
@@ -155,9 +160,10 @@ li:hover {
 	padding-right: 15px;
 }
 
-.filter-bar button:hover {
+.filter-bar button:hover, button:focus {
 	background-color: #1D6154;
 	cursor: pointer;
+	color: white;
 }
 
 .button-tous {

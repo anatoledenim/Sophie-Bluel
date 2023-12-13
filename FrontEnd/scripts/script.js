@@ -8,21 +8,40 @@ async function fetchGetElements(apiPoint) {
 async function buildFilter(filterBar) {
     const categories = await fetchGetElements("http://localhost:5678/api/categories");
     const filterBarTousP = document.createElement("button");
-    filterBarTousP.classList.add("filter-button")
+    filterBarTousP.setAttribute("id", "filter-button")
     filterBarTousP.innerText = "Tous";
     filterBar.appendChild(filterBarTousP)
     
     Array.from(categories).forEach((category) => {
-    let filterBarButton = document.createElement("button");
-    filterBarButton.innerText = category.name;
-    filterBarButton.dataset.categoryId = category.id
-    filterBarButton.classList.add("filter-button")
-    filterBar.appendChild(filterBarButton)
+        let filterBarButton = document.createElement("button");
+        filterBarButton.innerText = category.name;
+        filterBarButton.dataset.categoryId = category.id
+        filterBarButton.setAttribute("id", "filter-button")
+        filterBar.appendChild(filterBarButton)
+
+        filterBarTousP.addEventListener("click", function() {
+            applyFilterTous(category.id)
+        })
+        filterBarButton.addEventListener("click", function() {
+            applyFilter(category.id)
+        })
     })
 }
 
-// APPLIQUER LES FILTRES SUR LA PAGE
+// APPLIQUER LE FILTRE TOUS SUR LA PAGE
+function applyFilterTous() {
+    const galleryItem = Array.from(document.getElementsByClassName("gallery-item"))
+    galleryItem.forEach((element) => {
+        let elementCategoryId = parseInt(element.dataset.categoryId)
+        if (elementCategoryId >= 0) {
+            element.classList.remove("display-none")
+        }
+    });
+}
+
+// APPLIQUER LES FILTRES SUR LA PAGE (OBJETS, APPARTEMENTS, H&R)
 function applyFilter(filterCategoryId) {
+    const galleryItem = Array.from(document.getElementsByClassName("gallery-item"))
     galleryItem.forEach((element) => {
         let elementCategoryId = parseInt(element.dataset.categoryId)
         if (elementCategoryId !== filterCategoryId) {
@@ -36,6 +55,9 @@ function applyFilter(filterCategoryId) {
 // AFFICHER LES PROJETS SUR LE BLOC PRINCIPAL
 async function buildPage() {
     const works = await fetchGetElements("http://localhost:5678/api/works");
+
+    const filterBar = document.querySelector(".filter-bar");
+    buildFilter(filterBar)
 
     const worksName = works.map(works => works.title);
     const worksImage= works.map(works => works.imageUrl);
@@ -55,23 +77,14 @@ async function buildPage() {
         figureHTML.appendChild(nameGallery);
     }
 
-    const filterBar = document.querySelector(".filter-bar");
-    buildFilter(filterBar)  
-    
-    let filterBarButton = document.getElementsByClassName("filter-button")
-    console.log(filterBarButton)
-
-    const galleryItem = Array.from(document.getElementsByClassName("gallery-item"))
-    for (i = 1; i < filterBarButton.length; i++) {
-        filterBarButton = document.getElementsByClassName("filter-button")
-        filterBarButton[i].addEventListener("click", function() {
-        applyFilter(i)
-    });
-    console.log(galleryItem)
-    }
+    // for (i = 1; i < filterBarButton.length; i++) {
+    //     filterBarButton = document.getElementsByClassName("filter-button")
+    //     filterBarButton[i].addEventListener("click", function() {
+    //     applyFilter(i)
+    // });
+    // console.log(galleryItem)
+    // }
 
 }
 
 buildPage()
-
-
