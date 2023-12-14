@@ -55,7 +55,7 @@ function applyFilter(filterCategoryId) {
 // AFFICHER LES ELEMENTS SUR LE BLOC PRINCIPAL
 async function buildPage() {
     const works = await fetchGetElements("http://localhost:5678/api/works");
-
+    
     const filterBar = document.querySelector(".filter-bar");
     buildFilter(filterBar)
 
@@ -68,13 +68,13 @@ async function buildPage() {
     const divTrash = document.querySelector(".div-trash")
 
     for (i = 0; i < works.length; i++) {
-        const figureHTML = document.createElement("figure");
+        let figureHTML = document.createElement("figure");
         figureHTML.dataset.categoryId = categoryId[i];
         figureHTML.dataset.id = id[i];
         figureHTML.classList.add("gallery-item")
-        const imageGallery = document.createElement("img");
+        let imageGallery = document.createElement("img");
         imageGallery.src = worksImage[i];
-        const nameGallery = document.createElement("p");
+        let nameGallery = document.createElement("p");
         nameGallery.innerText = worksName[i];
         divGallery.appendChild(figureHTML);
         figureHTML.appendChild(imageGallery);
@@ -82,20 +82,20 @@ async function buildPage() {
     }
 
     for (i = 0; i < works.length; i++) {
-        const figureModal = document.createElement("figure");
+        let figureModal = document.createElement("figure");
         figureModal.dataset.categoryId = categoryId[i];
-        const imageGallery = document.createElement("img");
+        let imageGallery = document.createElement("img");
         imageGallery.src = worksImage[i];
         modalGrid.appendChild(figureModal);
         figureModal.appendChild(imageGallery);
 
-        const backgroundTrash = document.createElement("div")
+        let backgroundTrash = document.createElement("div")
         backgroundTrash.dataset.categoryId = categoryId[i];
         backgroundTrash.dataset.id = id[i];
         backgroundTrash.classList.add("background-trash")
-        const linkTrash = document.createElement("a")
+        let linkTrash = document.createElement("a")
         linkTrash.id = "link-trash"
-        const trash = document.createElement("img")
+        let trash = document.createElement("img")
         trash.classList.add("trash")
         trash.src = "../FrontEnd/assets/images/Vector (3).png"
         divTrash.appendChild(backgroundTrash)
@@ -124,13 +124,13 @@ async function buildPage() {
         })
     }
 
-    let figureHTML = document.querySelector(".gallery-item")
-    let backgroundTrash = document.querySelector(".background-trash")
-    console.log(figureHTML.dataset.id)
+    // let figureHTML = document.querySelector(".gallery-item")
+    // let backgroundTrash = document.querySelector(".background-trash")
+    // console.log(figureHTML.dataset.id)
 
-    backgroundTrash.addEventListener("click", function() {
-        console.log(EventTarget.dataset.id)
-    })
+    // backgroundTrash.addEventListener("click", function() {
+    //     console.log(EventTarget.dataset.id)
+    // })
 }
 
 buildPage()
