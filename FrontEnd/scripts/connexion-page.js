@@ -4,45 +4,49 @@ const inputPassword = document.getElementById("input-password")
 const connexionButton = document.getElementById("connexion-button")
 const inputMailBlock = document.getElementById("input-mail-block")
 
-// LISTENER DU BOUTON DE OCNNEXION
+// FONCTION POUR ENVOYER LE USER ET LE PASSWORD
+async function fetchPostElementConnexion(apiPoint, user, password) {
+    const fetcher = await fetch(apiPoint, {
+        method: 'POST',
+        headers: { "accept": "application/json", "Content-Type": "application/json" },
+        body: JSON.stringify({
+            "email": user,
+            "password": password
+        })
+    })
+    let json = await fetcher.json()
+    let token = await json.token
+    window.localStorage.setItem("token", token)
+    console.log(token)
+    return token
+} 
+
+// FONCTION REDIRECTION
+function redirectionPage() {
+    window.location.href="index.html"
+}
+
+// LISTENER DU BOUTON DE CONNEXION
 connexionButton.addEventListener("click", function() {
     let inputMailValue = inputMail.value 
     let inputPasswordValue = inputPassword.value
-    const messageMailError = document.getElementById("display-none-mail")
-    const messagePasswordError = document.getElementById("display-none-password")
+    const messageConnexionError = document.getElementById("display-none-connexion")
+    const user = "sophie.bluel@test.tld"
+    const password = "S0phie"
 
-    if (inputMailValue === "sophie.bluel@test.tld") {
-        try {
-            messageMailError.id = ("display-none-mail")
-        } catch {
-        }
-    } else {
-        try {
-            messageMailError.id = ("message-mail-error")
-            inputMail.id = ("input-mail-error")
-        } catch {
-        }
+    if (inputMailValue !== user) {
+        inputMail.id = ("input-mail-error")
     }
 
-    if (inputPasswordValue === "S0phie") {
-        try {
-            messagePasswordError.id = ("display-none-password")
-        } catch {
-        }
-    } else {
-        try {
-            messagePasswordError.id = ("message-password-error")
-            inputPassword.id = ("input-password-error")
-        } catch {
-        }
+    if (inputPasswordValue !== password) {
+        inputPassword.id = ("input-password-error")
     }
 
-    if (inputMailValue === "sophie.bluel@test.tld" && inputPasswordValue === "S0phie") {
-        window.localStorage.setItem("token", "gwEtS=KfKfR^zxJP83ULiw")
-        this.onclick=document.location.href='index.html'
+    if (inputMailValue === user && inputPasswordValue === password) {
+        fetchPostElementConnexion('http://localhost:5678/api/users/login', inputMailValue, inputPasswordValue)
+        redirectionPage()
     } else {
-        inputMail.innerText =""
-        inputPassword.innerText = ""
+        messageConnexionError.id = "message-connexion-error"
     }
 })
 

@@ -1,10 +1,10 @@
-// RECUPERER UNE ADRESSE AVEC FETCH
+// // RECUPERER UNE ADRESSE AVEC FETCH
 async function fetchGetElements(apiPoint) {
     const response = await fetch(apiPoint);
     return await response.json();
 }
 
-// AFFICHER LES BOUTONS DE FILTRE 
+// // AFFICHER LES BOUTONS DE FILTRE 
 async function buildFilter(filterBar) {
     const categories = await fetchGetElements("http://localhost:5678/api/categories");
     const filterBarTousP = document.createElement("button");
@@ -28,7 +28,7 @@ async function buildFilter(filterBar) {
     })
 }
 
-// APPLIQUER LE FILTRE TOUS SUR LA PAGE
+// // APPLIQUER LE FILTRE TOUS SUR LA PAGE
 function applyFilterTous() {
     const galleryItem = Array.from(document.getElementsByClassName("gallery-item"))
     galleryItem.forEach((element) => {
@@ -39,7 +39,7 @@ function applyFilterTous() {
     });
 }
 
-// APPLIQUER LES FILTRES SUR LA PAGE (OBJETS, APPARTEMENTS, H&R)
+// // APPLIQUER LES FILTRES SUR LA PAGE (OBJETS, APPARTEMENTS, H&R)
 function applyFilter(filterCategoryId) {
     const galleryItem = Array.from(document.getElementsByClassName("gallery-item"))
     galleryItem.forEach((element) => {
@@ -52,10 +52,23 @@ function applyFilter(filterCategoryId) {
     });
 }
 
+// // FONCTION POUR SUPPRIMER DES ELEMENTS
+const fetchDeleteElements = async function(id) {
+    let token = window.localStorage.getItem("token")
+        await fetch ("http://localhost:5678/api/works/" + id, { 
+            method: 'DELETE',
+            headers: {
+                accept: "*/*",
+                Authorization: "Bearer " + token,
+            }
+    })
+        console.log("la suppression à bien eu lieu")
+}
+
 // AFFICHER LES ELEMENTS SUR LE BLOC PRINCIPAL
 async function buildPage() {
     const works = await fetchGetElements("http://localhost:5678/api/works");
-    
+
     const filterBar = document.querySelector(".filter-bar");
     buildFilter(filterBar)
 
@@ -84,10 +97,12 @@ async function buildPage() {
     for (i = 0; i < works.length; i++) {
         let figureModal = document.createElement("figure");
         figureModal.dataset.categoryId = categoryId[i];
-        let imageGallery = document.createElement("img");
-        imageGallery.src = worksImage[i];
+        figureModal.dataset.id = id[i];
+        figureModal.id = "figure-modal"
+        let imageGalleryModal = document.createElement("img");
+        imageGalleryModal.src = worksImage[i];
         modalGrid.appendChild(figureModal);
-        figureModal.appendChild(imageGallery);
+        figureModal.appendChild(imageGalleryModal);
 
         let backgroundTrash = document.createElement("div")
         backgroundTrash.dataset.categoryId = categoryId[i];
@@ -104,8 +119,8 @@ async function buildPage() {
     }
 
     let h2Project = document.getElementById("h2-project")
-    let token = "gwEtS=KfKfR^zxJP83ULiw"
-    if (window.localStorage.getItem("token") === token) {
+    const token = window.localStorage.getItem("token")
+    if (window.localStorage.getItem("token") === token && window.localStorage.getItem("token") !== null) {
         let divBlack = document.getElementById("div-black-hidden")
         divBlack.id = ("div-black")
         divBlack.id 
@@ -124,13 +139,18 @@ async function buildPage() {
         })
     }
 
-    // let figureHTML = document.querySelector(".gallery-item")
-    // let backgroundTrash = document.querySelector(".background-trash")
-    // console.log(figureHTML.dataset.id)
 
-    // backgroundTrash.addEventListener("click", function() {
-    //     console.log(EventTarget.dataset.id)
-    // })
+    let backgroundTrash = document.querySelectorAll(".background-trash")
+    let arrayBackgroundTrash = Array.from(backgroundTrash)
+
+    arrayBackgroundTrash.forEach(data => {
+        data.addEventListener("click", function(event) {
+            event.preventDefault()
+            let id = data.dataset.id
+            console.log(id)
+            fetchDeleteElements(id)
+        })
+    })
 }
 
 buildPage()
