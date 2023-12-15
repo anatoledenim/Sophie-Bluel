@@ -39,7 +39,7 @@
 			<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
 			<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
 			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
-		</article>
+		</article>>
 	</section>
 	<section id="portfolio">
 		<div class="h2-project">
@@ -48,13 +48,45 @@
 				<a href="#modal1" class="js-modal"> <img class="div-edition-project-img" src="../FrontEnd/assets/images/Vector (2).png">
 				<p>Modifier</p> </a>
 				<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-modal="false" style="display: none;">
-					<div class="modal-wrapper js-modal-stop">
-						<img class="crossbar" src="../FrontEnd/assets/images/xmark.png">
-						<h1 id="h1-modal">Galerie photo</h1>
-						<div class="div-trash">
+					<div class="js-modal-stop">
+						<div class="modal-wrapper">
+							<img class="crossbar" src="../FrontEnd/assets/images/xmark.png">
+							<h1 id="h1-modal">Galerie photo</h1>
+							<div class="div-trash">
+							</div>
+							<div class="modal-grid"></div>
+							<button>Ajouter une photo</button>
 						</div>
-						<div class="modal-grid"></div>
-						<button>Ajouter une photo</button>
+						<div class="modal-wrapper2">
+							<div class="modal2-img">
+								<img class="previous-modal2" src="../FrontEnd/assets/images/arrow-left.png">
+								<img class="crossbar2" src="../FrontEnd/assets/images/xmark.png">
+							</div>
+							<h1>Ajout photo</h1>
+							<div class="input-file-visualizer-hidden">
+								<img class="input-file-visualizer-img-hidden" src="">
+								<div class="input-file">
+									<img src="../FrontEnd/assets/images/picture-svgrepo-com 1.png">
+									<label>+ Ajouter photo
+										<input class="input-file-button" type="file" disabled>
+									</label>
+									<p>jpeg, png : 4mo max</p>
+								</div>
+							</div>
+							<div class="input-title">
+								<label>Titre</label>
+								<br>
+								<input class="input-title-text" type="text">
+							</div>
+							<div class="input-category">
+								<label>Catégorie</label>
+								<br>
+								<input class="input-category-choice" type="text">
+							</div>
+							<div class="disabled-button">
+								<button>Valider</button>
+							</div>
+						</div>
 					</div>
 				</aside>
 			</div>

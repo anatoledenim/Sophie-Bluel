@@ -139,7 +139,6 @@ async function buildPage() {
         })
     }
 
-
     let backgroundTrash = document.querySelectorAll(".background-trash")
     let arrayBackgroundTrash = Array.from(backgroundTrash)
 
@@ -151,6 +150,35 @@ async function buildPage() {
             fetchDeleteElements(id)
         })
     })
+
+    const inputFileButton = document.querySelector(".input-file-button")
+    const inputFileVisualizer = document.querySelector(".input-file-visualizer-hidden")
+    const inputFileVisualizerImg = document.querySelector(".input-file-visualizer-img-hidden")
+    const inputFile = document.querySelector(".input-file")
+    
+    inputFileButton.addEventListener("change", function() {
+        const fold = this.files[0]
+        if(fold) {
+            const visualizer = new FileReader();
+            inputFile.classList.add("input-file-hidden")
+            inputFileVisualizer.classList.add("input-file-visualizer")
+            inputFileVisualizerImg.classList.remove("input-file-visualizer-img-hidden")
+            inputFileVisualizerImg.classList.add("input-file-visualizer-img")
+            visualizer.readAsDataURL(fold)
+            visualizer.addEventListener('load', function() {
+                inputFileVisualizerImg.src = this.result
+            })
+        }
+
+    })
+
+    const inputTitle = document.querySelector(".input-title-text")
+
+    const inputCategory = document.querySelector("input-category-choice")
+
+    if (inputFileButton !== null && inputTitle.value !== null && inputCategory !== null) {
+        
+    }
 }
 
 buildPage()
