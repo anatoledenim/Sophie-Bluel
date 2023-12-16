@@ -55,7 +55,7 @@
 							<div class="div-trash">
 							</div>
 							<div class="modal-grid"></div>
-							<button>Ajouter une photo</button>
+							<button class="button-add-photo">Ajouter une photo</button>
 						</div>
 						<div class="modal-wrapper2">
 							<div class="modal2-img">
@@ -68,7 +68,7 @@
 								<div class="input-file">
 									<img src="../FrontEnd/assets/images/picture-svgrepo-com 1.png">
 									<label>+ Ajouter photo
-										<input class="input-file-button" type="file" disabled>
+										<input class="input-file-button" type="file" onchange="checkForm()">
 									</label>
 									<p>jpeg, png : 4mo max</p>
 								</div>
@@ -76,14 +76,16 @@
 							<div class="input-title">
 								<label>Titre</label>
 								<br>
-								<input class="input-title-text" type="text">
+								<input class="input-title-text" type="text" onchange="checkForm()">
 							</div>
 							<div class="input-category">
 								<label>Catégorie</label>
 								<br>
-								<input class="input-category-choice" type="text">
+								<select class="input-category-choice" onchange="checkForm()">
+									<option value=""></option>
+								</select> 
 							</div>
-							<div class="disabled-button">
+							<div id="validate-button" class="disabled-button">
 								<button>Valider</button>
 							</div>
 						</div>

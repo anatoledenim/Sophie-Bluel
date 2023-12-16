@@ -58,11 +58,76 @@ const fetchDeleteElements = async function(id) {
         await fetch ("http://localhost:5678/api/works/" + id, { 
             method: 'DELETE',
             headers: {
-                accept: "*/*",
-                Authorization: "Bearer " + token,
+                "accept": "*/*",
+                "Authorization": "Bearer " + token,
             }
     })
         console.log("la suppression à bien eu lieu")
+}
+
+// FONCTION POUR AFFICHER LES CATEGORIES MENU DEROULANT
+async function showCategoriesInput() {
+    const categories = await fetchGetElements("http://localhost:5678/api/categories")
+    const categoriesNames = categories.map(categories => categories.name)
+    const categoriesId = categories.map(categories => categories.id)
+    let inputCategory = document.querySelector(".input-category-choice")
+    
+    let arrayCategories = Array.from(categories)
+    for (i = 0; i < arrayCategories.length; i++) {
+        let option = document.createElement("option")
+        option. classList.add("option-select")
+        option.innerText = categoriesNames[i];
+        option.setAttribute("value", categoriesId[i])
+        inputCategory.appendChild(option)
+    }
+}
+
+// VALIDATION DE FORMULAIRE
+function checkForm() {
+    let inputFile = document.querySelector(".input-file-button").files.length > 0
+    let inputText = document.querySelector(".input-title-text").value.length > 0
+    let inputCategory = document.querySelector(".input-category-choice").value !== ""
+
+    if (inputFile === true && inputText === true && inputCategory === true) {
+        try {
+            let validateButton = document.querySelector(".disabled-button")
+            validateButton.classList.remove("disabled-button")
+            validateButton.classList.add("unabled-button")
+            validateButton.disabled = false
+
+            validateButton.addEventListener("click", function() {
+                if (checkForm()) {
+                    fetchPostElement("http://localhost:5678/api/works")
+                }
+            })
+        } catch {}
+            return true
+    } else {
+        try {
+            let validateButton = document.querySelector(".unabled-button")
+            validateButton.classList.remove("unabled-button")
+            validateButton.classList.add("disabled-button")
+            validateButton.disabled = true
+        } catch {}
+        return false
+    }
+}
+
+async function fetchPostElement(apiPoint) {
+    let token = window.localStorage.getItem("token")
+    let inputFileVisualizerImg = document.querySelector(".input-file-visualizer-img")
+    let title = document.querySelector(".input-title-text")
+    let category = document.querySelector(".input-category-choice")
+
+    await fetch(apiPoint, {
+        method: "POST",
+        headers: { "Authorization": "Bearer " + token },
+        body: {
+            image: inputFileVisualizerImg.src,
+            title: title.value,
+            category: category.value
+        },
+    })
 }
 
 // AFFICHER LES ELEMENTS SUR LE BLOC PRINCIPAL
@@ -151,11 +216,12 @@ async function buildPage() {
         })
     })
 
-    const inputFileButton = document.querySelector(".input-file-button")
+    
     const inputFileVisualizer = document.querySelector(".input-file-visualizer-hidden")
     const inputFileVisualizerImg = document.querySelector(".input-file-visualizer-img-hidden")
+    const inputFileButton = document.querySelector(".input-file-button")
     const inputFile = document.querySelector(".input-file")
-    
+
     inputFileButton.addEventListener("change", function() {
         const fold = this.files[0]
         if(fold) {
@@ -169,16 +235,10 @@ async function buildPage() {
                 inputFileVisualizerImg.src = this.result
             })
         }
-
     })
 
-    const inputTitle = document.querySelector(".input-title-text")
-
-    const inputCategory = document.querySelector("input-category-choice")
-
-    if (inputFileButton !== null && inputTitle.value !== null && inputCategory !== null) {
-        
-    }
+    showCategoriesInput()
+    checkForm()
 }
 
 buildPage()

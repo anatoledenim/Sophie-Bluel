@@ -37,3 +37,20 @@ window.addEventListener("keydown", function(e) {
 
 let crossBar = document.querySelector(".crossbar")
 crossBar.addEventListener("click", closeModal)
+let crossbar2 = document.querySelector(".crossbar2")
+crossbar2.addEventListener("click", closeModal)
+
+const modalWrapper = document.querySelector(".modal-wrapper")
+const modalWrapper2 = document.querySelector(".modal-wrapper2")
+const buttonAddPhoto = document.querySelector(".button-add-photo")
+const previousArrow = document.querySelector(".previous-modal2")
+
+buttonAddPhoto.addEventListener("click", function() {
+    modalWrapper.style.display = "none"
+    modalWrapper2.style.display = "flex"
+})
+
+previousArrow.addEventListener("click", function() {
+    modalWrapper2.style.display = "none"
+    modalWrapper.style.display = "flex"
+})

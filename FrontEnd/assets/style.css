@@ -212,6 +212,20 @@ li:hover {
 	margin-left: 25px;
 }
 
+.gallery-item {
+	width: 335px;
+	height: 468px;
+}
+
+.gallery-item img {
+	height: 448px;
+	object-fit: cover;
+}
+
+#figure-modal img {
+	object-fit: cover;
+}
+
 * {
 	box-sizing: border-box;
 }
@@ -240,7 +254,6 @@ li:hover {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	display: none;
 }
 
 .crossbar {
@@ -333,7 +346,7 @@ li:hover {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	/* display: none; */
+	display: none;
 }
 
 .modal2-img {
@@ -378,13 +391,11 @@ li:hover {
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	border: black solid 1px;
 }
 
 .input-file-visualizer-img {
 	width: 129px;
 	height: 169px;
-	border: solid black 1px;
 	object-fit: cover;
 }
 
@@ -433,7 +444,6 @@ li:hover {
 }
 
 .input-file p {
-	border: 1px solid black;
 	margin-bottom: 10px;
 	font-size: 10px;
 }
@@ -471,7 +481,7 @@ li:hover {
 	font-weight: bold;
 }
 
-.input-category input {
+.input-category select {
 	width: 420px;
 	height: 51px;
 	border: none;
@@ -497,16 +507,27 @@ li:hover {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	cursor: pointer;
 }
 
-/* .disabled-button button {
+.disabled-button button {
 	font-family: Syne;
 	font-size: 14px;
 	font-weight: 700;
 	color: #FFFFFF;
 	background-color: #A7A7A7;
 	border: none;
-} */
+}
+
+.unabled-button button {
+	font-family: Syne;
+	font-size: 14px;
+	font-weight: 700;
+	color: #FFFFFF;
+	background-color: #1D6154;
+	border: none;
+	cursor: pointer;
+}
 
 .filter-bar {
 	width: 585px;
@@ -530,7 +551,7 @@ li:hover {
 	padding-right: 15px;
 }
 
-.filter-bar button:hover, button:focus {
+.filter-bar button:hover, .filter-bar button:focus {
 	background-color: #1D6154;
 	cursor: pointer;
 	color: white;
