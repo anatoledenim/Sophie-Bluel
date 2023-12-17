@@ -1,8 +1,8 @@
 let modal = null
 
-const openModal = function (e) {
+let openModal = function (e) {
     e.preventDefault()
-    const target = document.getElementById("modal1")
+    let target = document.getElementById("modal1")
     target.style.display = null
     target.removeAttribute('aria-hidden')
     target.setAttribute('aria-modal', 'true')
@@ -11,7 +11,7 @@ const openModal = function (e) {
     modal.querySelector(".js-modal-stop").addEventListener("click", stopPropagation)
 }
 
-const closeModal = function (e) {
+let closeModal = function (e) {
     if (modal === null) return
     e.preventDefault()
     modal.style.display = "none"
@@ -22,7 +22,7 @@ const closeModal = function (e) {
     modal = null
 }
 
-const stopPropagation = function (e) {
+let stopPropagation = function (e) {
     e.stopPropagation()
 }
 
@@ -40,10 +40,10 @@ crossBar.addEventListener("click", closeModal)
 let crossbar2 = document.querySelector(".crossbar2")
 crossbar2.addEventListener("click", closeModal)
 
-const modalWrapper = document.querySelector(".modal-wrapper")
-const modalWrapper2 = document.querySelector(".modal-wrapper2")
-const buttonAddPhoto = document.querySelector(".button-add-photo")
-const previousArrow = document.querySelector(".previous-modal2")
+let modalWrapper = document.querySelector(".modal-wrapper")
+let modalWrapper2 = document.querySelector(".modal-wrapper2")
+let buttonAddPhoto = document.querySelector(".button-add-photo")
+let previousArrow = document.querySelector(".previous-modal2")
 
 buttonAddPhoto.addEventListener("click", function() {
     modalWrapper.style.display = "none"

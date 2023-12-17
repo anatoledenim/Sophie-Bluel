@@ -551,9 +551,12 @@ li:hover {
 	padding-right: 15px;
 }
 
-.filter-bar button:hover, .filter-bar button:focus {
-	background-color: #1D6154;
+.filter-bar button:hover {
 	cursor: pointer;
+}
+
+#filter-button-green {
+	background-color: #1D6154;
 	color: white;
 }
 

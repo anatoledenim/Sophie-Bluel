@@ -1,4 +1,4 @@
-// // RECUPERER UNE ADRESSE AVEC FETCH
+// // RECUPERER UNE ADRESSE AVEC FETCHfilter-buttonge
 async function fetchGetElements(apiPoint) {
     const response = await fetch(apiPoint);
     return await response.json();
@@ -8,7 +8,7 @@ async function fetchGetElements(apiPoint) {
 async function buildFilter(filterBar) {
     const categories = await fetchGetElements("http://localhost:5678/api/categories");
     const filterBarTousP = document.createElement("button");
-    filterBarTousP.setAttribute("id", "filter-button")
+    filterBarTousP.setAttribute("id", "filter-button-green")
     filterBarTousP.innerText = "Tous";
     filterBar.appendChild(filterBarTousP)
     
@@ -17,6 +17,7 @@ async function buildFilter(filterBar) {
         filterBarButton.innerText = category.name;
         filterBarButton.dataset.categoryId = category.id
         filterBarButton.setAttribute("id", "filter-button")
+        filterBarButton.setAttribute("class", "filter-button-" + category.name)
         filterBar.appendChild(filterBarButton)
 
         filterBarTousP.addEventListener("click", function() {
@@ -26,7 +27,48 @@ async function buildFilter(filterBar) {
             applyFilter(category.id)
         })
     })
+
+    let filterBarButtonObject = document.querySelector(".filter-button-Objets")
+    let filterBarButtonAppartements = document.querySelector(".filter-button-Appartements")
+    let filterBarButtonHR = document.querySelector(".filter-button-Hotels")
+
+    filterBarTousP.addEventListener("click", function() {
+        try {
+            filterBarButtonObject.id = "filter-button"
+            filterBarButtonAppartements.id = "filter-button"
+            filterBarButtonHR.id = "filter-button"
+        } catch {}
+        filterBarTousP.id = "filter-button-green"
+    })
+
+    filterBarButtonObject.addEventListener("click", function() {
+        try {
+            filterBarTousP.id = "filter-button"
+            filterBarButtonAppartements.id = "filter-button"
+            filterBarButtonHR.id = "filter-button"
+        } catch {}
+        filterBarButtonObject.id = "filter-button-green"
+    })
+
+    filterBarButtonAppartements.addEventListener("click", function() {
+        try {
+            filterBarTousP.id = "filter-button"
+            filterBarButtonObject.id = "filter-button"
+            filterBarButtonHR.id = "filter-button"
+        } catch {}
+        filterBarButtonAppartements.id = "filter-button-green"
+    })
+
+    filterBarButtonHR.addEventListener("click", function() {
+        try {
+            filterBarTousP.id = "filter-button"
+            filterBarButtonAppartements.id = "filter-button"
+            filterBarButtonObject.id = "filter-button"
+        } catch {}
+        filterBarButtonHR.id = "filter-button-green"
+    })
 }
+
 
 // // APPLIQUER LE FILTRE TOUS SUR LA PAGE
 function applyFilterTous() {
@@ -119,15 +161,18 @@ async function fetchPostElement(apiPoint) {
     let title = document.querySelector(".input-title-text")
     let category = document.querySelector(".input-category-choice")
 
-    await fetch(apiPoint, {
-        method: "POST",
-        headers: { "Authorization": "Bearer " + token },
-        body: {
-            image: inputFileVisualizerImg.src,
-            title: title.value,
-            category: category.value
-        },
-    })
+    let formData = new formData()
+    formData.append(inputFileVisualizerImg.src)
+    formData.append(title.value)
+    formData.append(parseInt(category.value))
+
+    console.log(formData)
+
+    // await fetch(apiPoint, {
+    //     method: "POST",
+    //     headers: { "Authorization": "Bearer " + token },
+    //     body: chargeUtile,
+    // })
 }
 
 // AFFICHER LES ELEMENTS SUR LE BLOC PRINCIPAL
@@ -205,9 +250,7 @@ async function buildPage() {
     }
 
     let backgroundTrash = document.querySelectorAll(".background-trash")
-    let arrayBackgroundTrash = Array.from(backgroundTrash)
-
-    arrayBackgroundTrash.forEach(data => {
+    Array.from(backgroundTrash).forEach((data) => {
         data.addEventListener("click", function(event) {
             event.preventDefault()
             let id = data.dataset.id
@@ -233,6 +276,7 @@ async function buildPage() {
             visualizer.readAsDataURL(fold)
             visualizer.addEventListener('load', function() {
                 inputFileVisualizerImg.src = this.result
+                console.log(inputFileVisualizerImg)
             })
         }
     })
