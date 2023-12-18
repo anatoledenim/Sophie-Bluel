@@ -1,23 +1,25 @@
 // // RECUPERER UNE ADRESSE AVEC FETCHfilter-buttonge
 async function fetchGetElements(apiPoint) {
-    const response = await fetch(apiPoint);
-    return await response.json();
+    const response = await fetch(apiPoint)
+    return await response.json()
 }
 
 // // AFFICHER LES BOUTONS DE FILTRE 
 async function buildFilter(filterBar) {
-    const categories = await fetchGetElements("http://localhost:5678/api/categories");
-    const filterBarTousP = document.createElement("button");
-    filterBarTousP.setAttribute("id", "filter-button-green")
-    filterBarTousP.innerText = "Tous";
+    const categories = await fetchGetElements("http://localhost:5678/api/categories")
+    const filterBarTousP = document.createElement("button")
+    filterBarTousP.classList.add("filter-bar-button")
+    filterBarTousP.classList.add("filter-button-green")
+    filterBarTousP.dataset.categoryId = 0
+    filterBarTousP.innerText = "Tous"
     filterBar.appendChild(filterBarTousP)
     
     Array.from(categories).forEach((category) => {
-        let filterBarButton = document.createElement("button");
-        filterBarButton.innerText = category.name;
+        let filterBarButton = document.createElement("button")
+        filterBarButton.innerText = category.name
         filterBarButton.dataset.categoryId = category.id
         filterBarButton.setAttribute("id", "filter-button")
-        filterBarButton.setAttribute("class", "filter-button-" + category.name)
+        filterBarButton.classList.add("filter-bar-button")
         filterBar.appendChild(filterBarButton)
 
         filterBarTousP.addEventListener("click", function() {
@@ -25,50 +27,10 @@ async function buildFilter(filterBar) {
         })
         filterBarButton.addEventListener("click", function() {
             applyFilter(category.id)
+            
         })
     })
-
-    let filterBarButtonObject = document.querySelector(".filter-button-Objets")
-    let filterBarButtonAppartements = document.querySelector(".filter-button-Appartements")
-    let filterBarButtonHR = document.querySelector(".filter-button-Hotels")
-
-    filterBarTousP.addEventListener("click", function() {
-        try {
-            filterBarButtonObject.id = "filter-button"
-            filterBarButtonAppartements.id = "filter-button"
-            filterBarButtonHR.id = "filter-button"
-        } catch {}
-        filterBarTousP.id = "filter-button-green"
-    })
-
-    filterBarButtonObject.addEventListener("click", function() {
-        try {
-            filterBarTousP.id = "filter-button"
-            filterBarButtonAppartements.id = "filter-button"
-            filterBarButtonHR.id = "filter-button"
-        } catch {}
-        filterBarButtonObject.id = "filter-button-green"
-    })
-
-    filterBarButtonAppartements.addEventListener("click", function() {
-        try {
-            filterBarTousP.id = "filter-button"
-            filterBarButtonObject.id = "filter-button"
-            filterBarButtonHR.id = "filter-button"
-        } catch {}
-        filterBarButtonAppartements.id = "filter-button-green"
-    })
-
-    filterBarButtonHR.addEventListener("click", function() {
-        try {
-            filterBarTousP.id = "filter-button"
-            filterBarButtonAppartements.id = "filter-button"
-            filterBarButtonObject.id = "filter-button"
-        } catch {}
-        filterBarButtonHR.id = "filter-button-green"
-    })
 }
-
 
 // // APPLIQUER LE FILTRE TOUS SUR LA PAGE
 function applyFilterTous() {
@@ -78,7 +40,8 @@ function applyFilterTous() {
         if (elementCategoryId >= 0) {
             element.classList.remove("display-none")
         }
-    });
+    })
+    applyActiveButtonFilter(0)
 }
 
 // // APPLIQUER LES FILTRES SUR LA PAGE (OBJETS, APPARTEMENTS, H&R)
@@ -91,12 +54,26 @@ function applyFilter(filterCategoryId) {
         } else {
             element.classList.remove("display-none")
         }
-    });
+    })
+    applyActiveButtonFilter(filterCategoryId)
+}
+
+function applyActiveButtonFilter(filterCategoryId) {
+    const filterBarChildren = document.querySelector(".filter-bar").children
+    Array.from(filterBarChildren).forEach((filterButton) => {
+        let filterButtonCategoryId = parseInt(filterButton.dataset.categoryId)
+        if (filterCategoryId === filterButtonCategoryId) {
+            filterButton.classList.add("filter-button-green")
+            
+        } else {
+            filterButton.classList.remove("filter-button-green")
+        }
+    })
 }
 
 // // FONCTION POUR SUPPRIMER DES ELEMENTS
 const fetchDeleteElements = async function(id) {
-    let token = window.localStorage.getItem("token")
+    let token = localStorage.getItem("authentificationToken")
         await fetch ("http://localhost:5678/api/works/" + id, { 
             method: 'DELETE',
             headers: {
@@ -104,7 +81,6 @@ const fetchDeleteElements = async function(id) {
                 "Authorization": "Bearer " + token,
             }
     })
-        console.log("la suppression à bien eu lieu")
 }
 
 // FONCTION POUR AFFICHER LES CATEGORIES MENU DEROULANT
@@ -118,7 +94,7 @@ async function showCategoriesInput() {
     for (i = 0; i < arrayCategories.length; i++) {
         let option = document.createElement("option")
         option. classList.add("option-select")
-        option.innerText = categoriesNames[i];
+        option.innerText = categoriesNames[i]
         option.setAttribute("value", categoriesId[i])
         inputCategory.appendChild(option)
     }
@@ -137,9 +113,19 @@ function checkForm() {
             validateButton.classList.add("unabled-button")
             validateButton.disabled = false
 
-            validateButton.addEventListener("click", function() {
+            validateButton.addEventListener("click", function(e) {
                 if (checkForm()) {
-                    fetchPostElement("http://localhost:5678/api/works")
+                    e.preventDefault
+                    let inputFileVisualizerImg = document.querySelector(".input-file-visualizer-img")
+                    let title = document.querySelector(".input-title-text")
+                    let category = document.querySelector(".input-category-choice")
+
+                    let formData = new FormData()
+                    formData.append("image", inputFileVisualizerImg.src)
+                    formData.append("title", title.value)
+                    formData.append("category", parseInt(category.value))
+                    console.log(formData)
+                    fetchPostElement("http://localhost:5678/api/works", formData)
                 }
             })
         } catch {}
@@ -155,82 +141,74 @@ function checkForm() {
     }
 }
 
-async function fetchPostElement(apiPoint) {
-    let token = window.localStorage.getItem("token")
-    let inputFileVisualizerImg = document.querySelector(".input-file-visualizer-img")
-    let title = document.querySelector(".input-title-text")
-    let category = document.querySelector(".input-category-choice")
+async function fetchPostElement(apiPoint, formData) {
+    let token = localStorage.getItem("authentificationToken")
 
-    let formData = new formData()
-    formData.append(inputFileVisualizerImg.src)
-    formData.append(title.value)
-    formData.append(parseInt(category.value))
-
-    console.log(formData)
-
-    // await fetch(apiPoint, {
-    //     method: "POST",
-    //     headers: { "Authorization": "Bearer " + token },
-    //     body: chargeUtile,
-    // })
+    await fetch(apiPoint, {
+        method: "POST",
+        headers: {  "accept": "application/json",
+                    "Authorization": "Bearer " + token },
+        body: { formData }
+    })
 }
 
 // AFFICHER LES ELEMENTS SUR LE BLOC PRINCIPAL
 async function buildPage() {
-    const works = await fetchGetElements("http://localhost:5678/api/works");
+    const works = await fetchGetElements("http://localhost:5678/api/works")
 
-    const filterBar = document.querySelector(".filter-bar");
+    const filterBar = document.querySelector(".filter-bar")
     buildFilter(filterBar)
 
-    const worksName = works.map(works => works.title);
-    const worksImage= works.map(works => works.imageUrl);
-    const categoryId = works.map(works => works.categoryId);
+    const worksName = works.map(works => works.title)
+    const worksImage= works.map(works => works.imageUrl)
+    const categoryId = works.map(works => works.categoryId)
     const id = works.map(works => works.id)
-    const divGallery = document.querySelector(".gallery");
+    const divGallery = document.querySelector(".gallery")
     const modalGrid = document.querySelector(".modal-grid")
-    const divTrash = document.querySelector(".div-trash")
+    // const divTrash = document.querySelector(".div-trash")
 
     for (i = 0; i < works.length; i++) {
-        let figureHTML = document.createElement("figure");
-        figureHTML.dataset.categoryId = categoryId[i];
-        figureHTML.dataset.id = id[i];
+        let figureHTML = document.createElement("figure")
+        figureHTML.dataset.categoryId = categoryId[i]
+        figureHTML.dataset.id = id[i]
         figureHTML.classList.add("gallery-item")
-        let imageGallery = document.createElement("img");
-        imageGallery.src = worksImage[i];
-        let nameGallery = document.createElement("p");
-        nameGallery.innerText = worksName[i];
-        divGallery.appendChild(figureHTML);
-        figureHTML.appendChild(imageGallery);
-        figureHTML.appendChild(nameGallery);
+        let imageGallery = document.createElement("img")
+        imageGallery.src = worksImage[i]
+        let nameGallery = document.createElement("p")
+        nameGallery.innerText = worksName[i]
+        divGallery.appendChild(figureHTML)
+        figureHTML.appendChild(imageGallery)
+        figureHTML.appendChild(nameGallery)
     }
 
     for (i = 0; i < works.length; i++) {
-        let figureModal = document.createElement("figure");
-        figureModal.dataset.categoryId = categoryId[i];
-        figureModal.dataset.id = id[i];
+        let figureModal = document.createElement("figure")
+        figureModal.dataset.categoryId = categoryId[i]
+        figureModal.dataset.id = id[i]
         figureModal.id = "figure-modal"
-        let imageGalleryModal = document.createElement("img");
-        imageGalleryModal.src = worksImage[i];
-        modalGrid.appendChild(figureModal);
-        figureModal.appendChild(imageGalleryModal);
+        let imageGalleryModal = document.createElement("img")
+        imageGalleryModal.src = worksImage[i]
+        imageGalleryModal.classList.add("modal-grid-image")
+        modalGrid.appendChild(figureModal)
+        figureModal.appendChild(imageGalleryModal)
 
         let backgroundTrash = document.createElement("div")
-        backgroundTrash.dataset.categoryId = categoryId[i];
-        backgroundTrash.dataset.id = id[i];
+        backgroundTrash.dataset.categoryId = categoryId[i]
+        backgroundTrash.dataset.id = id[i]
         backgroundTrash.classList.add("background-trash")
         let linkTrash = document.createElement("a")
-        linkTrash.id = "link-trash"
+        linkTrash.classList.add("link-trash")
         let trash = document.createElement("img")
         trash.classList.add("trash")
         trash.src = "../FrontEnd/assets/images/Vector (3).png"
-        divTrash.appendChild(backgroundTrash)
+        figureModal.appendChild(backgroundTrash)
         backgroundTrash.appendChild(linkTrash)
         linkTrash.appendChild(trash)
     }
 
     let h2Project = document.getElementById("h2-project")
-    const token = window.localStorage.getItem("token")
-    if (window.localStorage.getItem("token") === token && window.localStorage.getItem("token") !== null) {
+    const token = localStorage.getItem("authentificationToken")
+    if (localStorage.getItem("authentificationToken") === token && localStorage.getItem("authentificationToken") !== null) {
         let divBlack = document.getElementById("div-black-hidden")
         divBlack.id = ("div-black")
         divBlack.id 
@@ -244,7 +222,7 @@ async function buildPage() {
         divEditionProject.id = ("div-edition-project")
 
         logout.addEventListener("click", function() {
-            window.localStorage.removeItem("token")
+            localStorage.removeItem("authentificationToken")
             this.onclick=document.location.href='index.html'
         })
     }
@@ -254,7 +232,6 @@ async function buildPage() {
         data.addEventListener("click", function(event) {
             event.preventDefault()
             let id = data.dataset.id
-            console.log(id)
             fetchDeleteElements(id)
         })
     })
@@ -268,7 +245,7 @@ async function buildPage() {
     inputFileButton.addEventListener("change", function() {
         const fold = this.files[0]
         if(fold) {
-            const visualizer = new FileReader();
+            const visualizer = new FileReader()
             inputFile.classList.add("input-file-hidden")
             inputFileVisualizer.classList.add("input-file-visualizer")
             inputFileVisualizerImg.classList.remove("input-file-visualizer-img-hidden")
@@ -276,7 +253,6 @@ async function buildPage() {
             visualizer.readAsDataURL(fold)
             visualizer.addEventListener('load', function() {
                 inputFileVisualizerImg.src = this.result
-                console.log(inputFileVisualizerImg)
             })
         }
     })

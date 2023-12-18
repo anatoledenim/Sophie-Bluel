@@ -222,6 +222,10 @@ li:hover {
 	object-fit: cover;
 }
 
+#figure-modal {
+	position: relative;
+}
+
 #figure-modal img {
 	object-fit: cover;
 }
@@ -243,7 +247,6 @@ li:hover {
 }
 
 .modal-wrapper {
-	position: relative;
 	overflow: auto;
 	background-color: white;
 	padding: 20px;
@@ -272,35 +275,6 @@ li:hover {
 	color: black;
 }
 
-.div-trash {
-	position: absolute;
-	width: 68.3%;
-	height: 352.8px;
-	top: 160px;
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-	grid-column-gap: 10px;
-	grid-row-gap: 20px;
-}
-
-.background-trash {
-	width: 17px;
-	height: 17px;
-	border-radius: 2px;
-	background-color: black;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	margin-left: 55px;
-	margin-top: 5px;
-	cursor: pointer;
-}
-
-.trash {
-	width: 9px;
-	height: 10.29px;
-}
-
 .modal-grid {
 	margin-top: 50px;
 	padding-bottom: 20px;
@@ -313,9 +287,30 @@ li:hover {
 	grid-row-gap: 20px;
 }
 
-.modal-grid img {
+.modal-grid-image {
 	width: 76.86px;
 	height: 102.57px;
+}
+
+.background-trash {
+	position: absolute;
+	width: 17px;
+	height: 17px;
+	border-radius: 2px;
+	background-color: black;
+	cursor: pointer;
+	top: 7px;
+	right: 7px;
+}
+
+.link-trash {
+	width: 17px;
+	height: 17px;
+}
+
+.trash {
+	width: 9px;
+	height: 10.29px;
 }
 
 .modal-wrapper button {
@@ -335,7 +330,6 @@ li:hover {
 }
 
 .modal-wrapper2 {
-	position: relative;
 	overflow: auto;
 	background-color: white;
 	padding: 20px;
@@ -538,8 +532,7 @@ li:hover {
 	justify-content: space-between;
 }
 
-
-.filter-bar button {
+.filter-bar-button {
 	font-size: 16px;
 	font-family: 'Syne', sans-serif;
 	font-weight: 700;
@@ -555,7 +548,7 @@ li:hover {
 	cursor: pointer;
 }
 
-#filter-button-green {
+.filter-button-green {
 	background-color: #1D6154;
 	color: white;
 }

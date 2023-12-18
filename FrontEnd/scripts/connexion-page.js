@@ -16,9 +16,8 @@ async function fetchPostElementConnexion(apiPoint, user, password) {
     })
     let json = await fetcher.json()
     let token = await json.token
-    window.localStorage.setItem("token", token)
-    console.log(token)
-    return token
+    localStorage.setItem("authentificationToken", token)
+    redirectionPage()
 } 
 
 // FONCTION REDIRECTION
@@ -44,7 +43,6 @@ connexionButton.addEventListener("click", function() {
 
     if (inputMailValue === user && inputPasswordValue === password) {
         fetchPostElementConnexion('http://localhost:5678/api/users/login', inputMailValue, inputPasswordValue)
-        redirectionPage()
     } else {
         messageConnexionError.id = "message-connexion-error"
     }
