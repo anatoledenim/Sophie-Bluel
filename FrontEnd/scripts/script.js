@@ -111,7 +111,6 @@ function checkForm() {
             let validateButton = document.querySelector(".disabled-button")
             validateButton.classList.remove("disabled-button")
             validateButton.classList.add("unabled-button")
-            validateButton.disabled = false
 
             validateButton.addEventListener("click", function(e) {
                 if (checkForm()) {
@@ -126,8 +125,11 @@ function checkForm() {
             let validateButton = document.querySelector(".unabled-button")
             validateButton.classList.remove("unabled-button")
             validateButton.classList.add("disabled-button")
-            validateButton.disabled = true
         } catch {}
+        let validateButton = document.querySelector(".disabled-button")
+        validateButton.addEventListener("click", function() {
+            alert("Veuillez compléter tous les champs avant d'envoyer votre projet.")
+        })
         return false
     }
 }
