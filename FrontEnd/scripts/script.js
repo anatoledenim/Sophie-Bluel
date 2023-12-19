@@ -116,16 +116,7 @@ function checkForm() {
             validateButton.addEventListener("click", function(e) {
                 if (checkForm()) {
                     e.preventDefault
-                    let inputFileVisualizerImg = document.querySelector(".input-file-visualizer-img")
-                    let title = document.querySelector(".input-title-text")
-                    let category = document.querySelector(".input-category-choice")
-
-                    let formData = new FormData()
-                    formData.append("image", inputFileVisualizerImg.src)
-                    formData.append("title", title.value)
-                    formData.append("category", parseInt(category.value))
-                    console.log(formData)
-                    fetchPostElement("http://localhost:5678/api/works", formData)
+                    fetchPostElement("http://localhost:5678/api/works")
                 }
             })
         } catch {}
@@ -141,14 +132,23 @@ function checkForm() {
     }
 }
 
-async function fetchPostElement(apiPoint, formData) {
+async function fetchPostElement(apiPoint) {
     let token = localStorage.getItem("authentificationToken")
+    let inputImage = document.querySelector("#input-image")
+    let title = document.querySelector(".input-title-text")
+    let category = document.querySelector(".input-category-choice")
+
+    let formData = new FormData()
+                    formData.append("image", inputImage.files[0])
+                    formData.append("title", title.value)
+                    formData.append("category", parseInt(category.value))
+                    console.log(formData.get("image"))
 
     await fetch(apiPoint, {
         method: "POST",
         headers: {  "accept": "application/json",
                     "Authorization": "Bearer " + token },
-        body: { formData }
+        body: formData
     })
 }
 
