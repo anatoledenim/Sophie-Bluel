@@ -1,121 +1,127 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-	<meta charset="UTF-8">
-	<title>Sophie Bluel - Architecte d'intérieur</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
-	<meta name="description" content="">
-	<link rel="stylesheet" href="./assets/style.css">
-	<script src="../FrontEnd/scripts/script.js" defer></script>
-	<script src="../FrontEnd/scripts/modal.js" defer></script>
+   <meta charset="UTF-8">
+   <title>Sophie Bluel - Architecte d'intérieur</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
+   <meta name="description" content="">
+   <link rel="stylesheet" href="./assets/style.css">
+   <script src="../FrontEnd/scripts/script.js" defer></script>
+   <script src="../FrontEnd/scripts/modal.js" defer></script>
 </head>
 <body class="js-modal-close">
 <div id="div-black-hidden">
-	<img id="edition-img" src="../FrontEnd/assets/images/Vector (2).png">
-	<p id="edition-p">Mode édition</p>
+   <img id="edition-img" src="../FrontEnd/assets/images/Vector (2).png">
+   <p id="edition-p">Mode édition</p>
 </div>
 <header>
-	<h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
-	<nav>
-		<ul>
-			<li>projets</li>
-			<li>contact</li>
-			<a href="connexion-page.html" id="login"> <li>login</li> </a>
-			<a href="" id="display-none"> <li>logout</li> </a>
-			<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
-		</ul>
-	</nav>
+   <h1>Sophie Bluel <span>Architecte d'intérieur</span></h1>
+   <nav>
+       <ul>
+           <li>projets</li>
+           <li>contact</li>
+           <a href="connexion-page.html" id="login"> <li>login</li> </a>
+           <a href="" id="display-none"> <li>logout</li> </a>
+           <li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
+       </ul>
+   </nav>
 </header>
 <main>
-	<section id="introduction">
-		<figure>
-			<img src="./assets/images/sophie-bluel.png" alt="">
-		</figure>
-		<article>
-			<h2>Designer d'espace</h2>
-			<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
-			<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
-			<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
-		</article>
-	</section>
-	<section id="portfolio">
-		<div class="h2-project">
-			<h2 id="h2-project">Mes Projets</h2>
-			<div id="div-edition-project-hidden">
-				<a href="#modal1" class="js-modal"> <img class="div-edition-project-img" src="../FrontEnd/assets/images/Vector (2).png">
-				<p>Modifier</p> </a>
-				<aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-modal="false" style="display: none;">
-					<div class="js-modal-stop">
-						<div class="modal-wrapper">
-							<img class="crossbar" src="../FrontEnd/assets/images/xmark.png">
-							<h1 id="h1-modal">Galerie photo</h1>
-							<div class="modal-grid"></div>
-							<button class="button-add-photo">Ajouter une photo</button>
-						</div>
-						<div class="modal-wrapper2">
-							<div class="modal2-img">
-								<img class="previous-modal2" src="../FrontEnd/assets/images/arrow-left.png">
-								<img class="crossbar2" src="../FrontEnd/assets/images/xmark.png">
-							</div>
-							<h1>Ajout photo</h1>
-							<div class="input-file-visualizer-hidden">
-								<img class="input-file-visualizer-img-hidden" src="">
-								<div class="input-file">
-									<img src="../FrontEnd/assets/images/picture-svgrepo-com 1.png">
-									<label>+ Ajouter photo
-										<input class="input-file-button" id="input-image" type="file" onchange="checkForm()">
-									</label>
-									<p>jpeg, png : 4mo max</p>
-								</div>
-							</div>
-							<div class="input-title">
-								<label>Titre</label>
-								<br>
-								<input class="input-title-text" type="text" onchange="checkForm()">
-							</div>
-							<div class="input-category">
-								<label>Catégorie</label>
-								<br>
-								<select class="input-category-choice" onchange="checkForm()">
-									<option value=""></option>
-								</select> 	
-							</div>
-							<div id="validate-button" class="disabled-button">
-								<button>Valider</button>
-							</div>
-							<p class="message-error-post-hidden">Veuillez remplir tous les champs avant d'envoyer votre projet.</p>
-						</div>
-					</div>
-				</aside>
-			</div>
-		</div>
-		<div class="filter-bar"></div>
-		<div class="gallery"></div>
-	</section>
-	<section id="contact">
-		<h2>Contact</h2>
-		<p>Vous avez un projet ? Discutons-en !</p>
-		<form action="#" method="post">
-			<label for="name">Nom</label>
-			<input type="text" name="name" id="name">
-			<label for="email">Email</label>
-			<input type="email" name="email" id="email">
-			<label for="message">Message</label>
-			<textarea name="message" id="message" cols="30" rows="10"></textarea>
-			<input type="submit" value="Envoyer">
-		</form>
-	</section>
+   <section id="introduction">
+       <figure>
+           <img src="./assets/images/sophie-bluel.png" alt="">
+       </figure>
+       <article>
+           <h2>Designer d'espace</h2>
+           <p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
+           <p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
+           <p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
+       </article>
+   </section>
+   <section id="portfolio">
+       <div class="h2-project">
+           <h2 id="h2-project">Mes Projets</h2>
+           <div id="div-edition-project-hidden">
+               <a href="#modal1" class="js-modal"> <img class="div-edition-project-img" src="../FrontEnd/assets/images/Vector (2).png">
+               <p>Modifier</p> </a>
+               <aside id="modal1" class="modal" aria-hidden="true" role="dialog" aria-modal="false" style="display: none;">
+                   <div class="js-modal-stop">
+                       <div class="modal-wrapper">
+                           <img class="crossbar" src="../FrontEnd/assets/images/xmark.png">
+                           <h1 id="h1-modal">Galerie photo</h1>
+                           <div class="modal-grid"></div>
+                           <button class="button-add-photo">Ajouter une photo</button>
+                       </div>
+                       <div class="modal-wrapper2">
+                           <div class="modal2-img">
+                               <img class="previous-modal2" src="../FrontEnd/assets/images/arrow-left.png">
+                               <img class="crossbar2" src="../FrontEnd/assets/images/xmark.png">
+                           </div>
+                           <form>
+                               <h2 class="mw2-title">Ajout photo</h2>
+                               <div class="input-file-visualizer-hidden">
+                                   <img class="input-file-visualizer-img-hidden" src="">
+                                   <div class="input-file">
+                                       <img src="../FrontEnd/assets/images/picture-svgrepo-com 1.png">
+                                       <label>+ Ajouter photo
+                                           <input class="input-file-button" id="input-image" type="file">
+                                       </label>
+                                       <h3>jpeg, png : 4mo max</h3>
+                                   </div>
+                               </div>
+                               <div class="input-title">
+                                   <label>Titre</label>
+                                   <br>
+                                   <input class="input-title-text" type="text">
+                               </div>
+                               <div class="input-category">
+                                   <label>Catégorie</label>
+                                   <br>
+                                   <select class="input-category-choice">
+                                       <option value=""></option>
+                                   </select>  
+                               </div>
+                               <div id="validate-button" class="disabled-button">
+                                   <button>Valider</button>
+                               </div>
+                               <p class="message-error-post-hidden">Veuillez remplir tous les champs avant d'envoyer votre projet.</p>
+                           </form>
+                       </div>
+                   </div>
+               </aside>
+           </div>
+       </div>
+       <div class="filter-bar"></div>
+       <div class="gallery"></div>
+   </section>
+   <section id="contact">
+       <h2>Contact</h2>
+       <p>Vous avez un projet ? Discutons-en !</p>
+       <form action="#" method="post">
+           <label for="name">Nom</label>
+           <input type="text" name="name" id="name">
+           <label for="email">Email</label>
+           <input type="email" name="email" id="email">
+           <label for="message">Message</label>
+           <textarea name="message" id="message" cols="30" rows="10"></textarea>
+           <input type="submit" value="Envoyer">
+       </form>
+   </section>
 </main>
 
+
 <footer>
-	<nav>
-		<ul>
-			<li>Mentions Légales</li>
-		</ul>
-	</nav>
+   <nav>
+       <ul>
+           <li>Mentions Légales</li>
+       </ul>
+   </nav>
 </footer>
 </body>
 </html>
+
+
+
