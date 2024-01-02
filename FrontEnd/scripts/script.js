@@ -136,6 +136,7 @@ validateButton.addEventListener("click", function(e) {
 let checkInputs = checkForm()
 if (checkInputs === false) {
     alert("Veuillez remplir tous les champs.")
+    e.preventDefault
 } else {
     e.preventDefault
     fetchPostElement("http://localhost:5678/api/works")
