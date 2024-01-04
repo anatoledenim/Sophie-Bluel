@@ -134,17 +134,16 @@ const inputs = form.querySelectorAll("input, select").forEach((input) => {
   });
 });
 
-validateButton.addEventListener("click", function (e) {
+validateButton.addEventListener("click", function(e) {
+  e.preventDefault
   let checkInputs = checkForm();
   if (checkInputs === false) {
-    e.preventDefault;
-    alert("Veuillez remplir tous les champs.");
+    alert("Veuillez remplir tous les champs.")
   } 
-  // else {
-  //   e.preventDefault;
-  //   // fetchPostElement("http://localhost:5678/api/works");
-  })
-// });
+  else {
+    fetchPostElement("http://localhost:5678/api/works");
+  }
+})
 
 async function fetchPostElement(apiPoint) {
   let token = localStorage.getItem("authentificationToken");
@@ -156,13 +155,11 @@ async function fetchPostElement(apiPoint) {
   formData.append("image", inputImage.files[0]);
   formData.append("title", title.value);
   formData.append("category", parseInt(category.value));
-
   let response = await fetch(apiPoint, {
     method: "POST",
     headers: { accept: "application/json", Authorization: "Bearer " + token },
     body: formData,
   })
-
   if (response.ok) {
     let json = await response.json()
     console.log(json)
