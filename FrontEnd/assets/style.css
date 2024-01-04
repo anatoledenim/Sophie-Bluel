@@ -543,6 +543,7 @@ li:hover {
 }
 
 .disabled-button button {
+	height: 100%;
 	font-family: Syne;
 	font-size: 14px;
 	font-weight: 700;
@@ -552,6 +553,7 @@ li:hover {
 }
 
 .unabled-button button {
+	height: 100%;
 	font-family: Syne;
 	font-size: 14px;
 	font-weight: 700;

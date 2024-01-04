@@ -78,18 +78,17 @@ function applyActiveButtonFilter(filterCategoryId) {
 // // FONCTION POUR SUPPRIMER DES ELEMENTS
 const fetchDeleteElements = async function (id) {
   let token = localStorage.getItem("authentificationToken");
-  await fetch("http://localhost:5678/api/works/" + id, {
+  let response = await fetch("http://localhost:5678/api/works/" + id, {
     method: "DELETE",
     headers: {
       accept: "*/*",
       Authorization: "Bearer " + token,
     },
   });
-// .then(response => { if(response.ok) {
-//     // recuperer le contenu de gallery
-//     // supprimer le projet dans la gallery et dans la modale
-//   }})
-};
+  if (response.ok) {
+
+  }
+}
 
 // FONCTION POUR AFFICHER LES CATEGORIES MENU DEROULANT
 async function showCategoriesInput() {
@@ -128,14 +127,14 @@ function checkForm() {
 }
 
 const form = document.querySelector("form");
-const inputs = form.querySelectorAll("input, select").forEach((input) => {
+let inputs = form.querySelectorAll("input, select").forEach((input) => {
   input.addEventListener("input", () => {
     console.log(checkForm());
   });
 });
 
 validateButton.addEventListener("click", function(e) {
-  e.preventDefault
+  e.preventDefault()
   let checkInputs = checkForm();
   if (checkInputs === false) {
     alert("Veuillez remplir tous les champs.")
@@ -162,7 +161,44 @@ async function fetchPostElement(apiPoint) {
   })
   if (response.ok) {
     let json = await response.json()
-    console.log(json)
+
+    let divGallery = document.querySelector(".gallery")
+    let modalGrid = document.querySelector(".modal-grid")
+    let newFigureHTMLGallery = document.createElement("figure")
+    newFigureHTMLGallery.dataset.categoryId = json.categoryId
+    newFigureHTMLGallery.dataset.id = json.id;
+    newFigureHTMLGallery.classList.add("gallery-item")
+    let newFigureHTMLModal = document.createElement("figure")
+    newFigureHTMLModal.dataset.categoryId = json.categoryId
+    newFigureHTMLModal.dataset.id = json.id;
+    newFigureHTMLModal.id = "figure-modal"
+    let newWorkImageModal = document.createElement("img")
+    newWorkImageModal.src = json.imageUrl
+    newWorkImageModal.classList.add("modal-grid-image")
+    let newWorkImage = document.createElement("img")
+    newWorkImage.src = json.imageUrl
+    let newWorkName = document.createElement("p")
+    newWorkName.innerText = json.title
+
+    divGallery.appendChild(newFigureHTMLGallery)
+    newFigureHTMLGallery.appendChild(newWorkImage)
+    newFigureHTMLGallery.appendChild(newWorkName)
+
+    modalGrid.appendChild(newFigureHTMLModal)
+    newFigureHTMLModal.appendChild(newWorkImageModal)
+
+    let backgroundTrash = document.createElement("div");
+    backgroundTrash.dataset.categoryId = json.categoryId;
+    backgroundTrash.dataset.id = json.id;
+    backgroundTrash.classList.add("background-trash");
+    let linkTrash = document.createElement("a");
+    linkTrash.classList.add("link-trash");
+    let trash = document.createElement("img");
+    trash.classList.add("trash");
+    trash.src = "../FrontEnd/assets/images/Vector (3).png";
+    newFigureHTMLModal.appendChild(backgroundTrash);
+    backgroundTrash.appendChild(linkTrash);
+    linkTrash.appendChild(trash);
   }
 }
 
@@ -179,7 +215,6 @@ async function buildPage() {
   const id = works.map((works) => works.id);
   const divGallery = document.querySelector(".gallery");
   const modalGrid = document.querySelector(".modal-grid");
-  // const divTrash = document.querySelector(".div-trash")
 
   for (i = 0; i < works.length; i++) {
     let figureHTML = document.createElement("figure");
@@ -252,6 +287,8 @@ async function buildPage() {
       event.preventDefault();
       let id = data.dataset.id;
       fetchDeleteElements(id);
+      let deleteElement = event.target
+      deleteElement.remove()
     });
   });
 
@@ -282,7 +319,6 @@ async function buildPage() {
   });
 
   showCategoriesInput();
-  checkForm();
 }
 
 buildPage();
