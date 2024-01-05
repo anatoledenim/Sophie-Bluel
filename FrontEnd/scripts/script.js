@@ -78,16 +78,13 @@ function applyActiveButtonFilter(filterCategoryId) {
 // // FONCTION POUR SUPPRIMER DES ELEMENTS
 const fetchDeleteElements = async function (id) {
   let token = localStorage.getItem("authentificationToken");
-  let response = await fetch("http://localhost:5678/api/works/" + id, {
+    await fetch("http://localhost:5678/api/works/" + id, {
     method: "DELETE",
     headers: {
       accept: "*/*",
       Authorization: "Bearer " + token,
     },
   });
-  if (response.ok) {
-
-  }
 }
 
 // FONCTION POUR AFFICHER LES CATEGORIES MENU DEROULANT
@@ -133,6 +130,13 @@ let inputs = form.querySelectorAll("input, select").forEach((input) => {
   });
 });
 
+let inputImage = document.getElementById("input-image")
+let inputTitle = document.querySelector(".input-title-text")
+let inputChoice= document.querySelector(".input-category-choice")
+let inputImageVisualizer = document.querySelector(".input-file-visualizer-img-hidden")
+let inputVisualizer = document.querySelector(".input-file-visualizer-hidden")
+let inputFile = document.querySelector(".input-file")
+
 validateButton.addEventListener("click", function(e) {
   e.preventDefault()
   let checkInputs = checkForm();
@@ -141,6 +145,15 @@ validateButton.addEventListener("click", function(e) {
   } 
   else {
     fetchPostElement("http://localhost:5678/api/works");
+    inputImageVisualizer.src = ""
+    inputImageVisualizer.classList.remove("input-file-visualizer-img")
+    inputImageVisualizer.classList.add("input-file-visualizer-img-hidden")
+    inputVisualizer.classList.remove("input-file-visualizer")
+    inputVisualizer.classList.add("input-file-visualizer-hidden")
+    inputFile.classList.add("input-file")
+    inputFile.classList.remove("input-file-hidden")
+    inputTitle.value = ""
+    inputChoice.value = 0
   }
 })
 
