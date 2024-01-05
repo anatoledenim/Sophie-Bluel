@@ -287,8 +287,18 @@ async function buildPage() {
       event.preventDefault();
       let id = data.dataset.id;
       fetchDeleteElements(id);
-      let deleteElement = event.target
-      deleteElement.remove()
+      let trashIcon = event.target
+      let trashDiv = trashIcon.parentNode
+      let deleteElement = trashDiv.parentNode
+      deleteElement.parentNode.remove()
+
+      let divGallery = document.querySelector(".gallery").children
+      let arrayGallery = Array.from(divGallery)
+      arrayGallery.forEach((figure) => {
+        if (figure.dataset.id === id) {
+          figure.remove()
+        }
+      })
     });
   });
 
