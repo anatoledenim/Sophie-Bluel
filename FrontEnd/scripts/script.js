@@ -1,10 +1,10 @@
-// // RECUPERER UNE ADRESSE AVEC FETCHfilter-buttonge
+// GET ADRESS WITH FETCH
 async function fetchGetElements(apiPoint) {
   const response = await fetch(apiPoint);
   return await response.json();
 }
 
-// // AFFICHER LES BOUTONS DE FILTRE
+// SHOW FILTER BUTTON
 async function buildFilter(filterBar) {
   const categories = await fetchGetElements(
     "http://localhost:5678/api/categories"
@@ -33,7 +33,7 @@ async function buildFilter(filterBar) {
   });
 }
 
-// // APPLIQUER LE FILTRE TOUS SUR LA PAGE
+// APPLY FILTER TOUS ON PAGE
 function applyFilterTous() {
   const galleryItem = Array.from(
     document.getElementsByClassName("gallery-item")
@@ -47,7 +47,7 @@ function applyFilterTous() {
   applyActiveButtonFilter(0);
 }
 
-// // APPLIQUER LES FILTRES SUR LA PAGE (OBJETS, APPARTEMENTS, H&R)
+// APPLY FILTER ON PAGE (OBJETS, APPARTEMENTS, HOTELS ET RESTAURANTS)
 function applyFilter(filterCategoryId) {
   const galleryItem = Array.from(
     document.getElementsByClassName("gallery-item")
@@ -75,7 +75,7 @@ function applyActiveButtonFilter(filterCategoryId) {
   });
 }
 
-// // FONCTION POUR SUPPRIMER DES ELEMENTS
+// FUNCTION TO DELETE ELEMENTS
 const fetchDeleteElements = async function (id) {
   let token = localStorage.getItem("authentificationToken");
     await fetch("http://localhost:5678/api/works/" + id, {
@@ -87,7 +87,7 @@ const fetchDeleteElements = async function (id) {
   });
 }
 
-// FONCTION POUR AFFICHER LES CATEGORIES MENU DEROULANT
+// FUNCTION TO SHOW CATEGORIES CHOICES IN THE INPUT
 async function showCategoriesInput() {
   const categories = await fetchGetElements(
     "http://localhost:5678/api/categories"
@@ -106,6 +106,8 @@ async function showCategoriesInput() {
   }
 }
 
+
+// FUNCTION TO CHECK IF EACH INPUTS IS FILLED
 const validateButton = document.getElementById("validate-button");
 function checkForm() {
   let inputFile = document.querySelector(".input-file-button").files.length;
@@ -137,6 +139,8 @@ let inputImageVisualizer = document.querySelector(".input-file-visualizer-img-hi
 let inputVisualizer = document.querySelector(".input-file-visualizer-hidden")
 let inputFile = document.querySelector(".input-file")
 
+
+// VALIDATION BY CLICK TO POST THE NEW WORK/ERROR MESSAGE IF EACH INPUT IS NOT FILLED
 validateButton.addEventListener("click", function(e) {
   e.preventDefault()
   let checkInputs = checkForm();
@@ -157,6 +161,7 @@ validateButton.addEventListener("click", function(e) {
   }
 })
 
+// FUNCTION TO POST ELEMENT ON THE DATABASE
 async function fetchPostElement(apiPoint) {
   let token = localStorage.getItem("authentificationToken");
   let inputImage = document.querySelector("#input-image");
@@ -215,7 +220,7 @@ async function fetchPostElement(apiPoint) {
   }
 }
 
-// AFFICHER LES ELEMENTS SUR LE BLOC PRINCIPAL
+// SHOW ELEMENTS ON THE PRINCIPAL PAGE
 async function buildPage() {
   const works = await fetchGetElements("http://localhost:5678/api/works");
 
