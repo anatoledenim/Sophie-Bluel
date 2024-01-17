@@ -276,8 +276,7 @@ async function buildPage() {
   let h2Project = document.getElementById("h2-project");
   const token = localStorage.getItem("authentificationToken");
   if (
-    localStorage.getItem("authentificationToken") === token &&
-    localStorage.getItem("authentificationToken") !== null
+    localStorage.getItem("authentificationToken") === token && localStorage.getItem("authentificationToken") !== null
   ) {
     let divBlack = document.getElementById("div-black-hidden");
     divBlack.id = "div-black";
@@ -347,6 +346,7 @@ async function buildPage() {
   });
 
   showCategoriesInput();
+  console.log(token)
 }
 
 buildPage();
